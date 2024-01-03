@@ -34,7 +34,7 @@ The saved models are in the folder *save_models*.
 - For finetuning:
 
 ```
-python odt.py --benchmark=adaptec1.py
+python odt.py --benchmark=adaptec1
 ```
 The model path for funetuning can be modified in *odt.py*. Typically, the optimal model files obtained from pre-training are used to fine-tune.
 
