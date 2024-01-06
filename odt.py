@@ -233,7 +233,7 @@ def work(model, pretrain_trainer, replay_buffer, tconf):
 def get_model(model_path):
     mconf = GPTConfig(grid ** 2, args.traj_len * 3,
                   n_layer=6, n_head=8, n_embd=128, 
-                  model_type=args.model_type, max_timestep=args.traj_len)
+                  model_type="reward_conditioned", max_timestep=args.traj_len)
     model = GPT(mconf)
     if model_path is not None:
         state_dict = torch.load(model_path)
