@@ -3,7 +3,7 @@
 An offline RL placement method ChiPFormer, significantly improving the design quality and efficiency.
 
 ###  Publication
-Yao Lai, Jinxin Liu, Zhentao Tang, Bin Wang,  "ChiPFormer: Transferable Chip Placement via Offline Decision Transformer." International Conference on Machine Learning, ICML (2023): 18346-18364.
+Yao Lai, Jinxin Liu, Zhentao Tang, Bin Wang, Jianye Hao, Ping Luo. "ChiPFormer: Transferable Chip Placement via Offline Decision Transformer." International Conference on Machine Learning, ICML (2023): 18346-18364.
 
 [paper](https://arxiv.org/pdf/2306.14744.pdf) | [dataset](https://drive.google.com/drive/folders/1F7075SvjccYk97i2UWhahN_9krBvDCmr) | [website](https://sites.google.com/view/chipformer/home) | [video(English)](https://www.youtube.com/watch?v=9-EQmDjRLHQ) | [video(Mandarin)](https://www.bilibili.com/video/BV1ym4y177CC/)
 
@@ -34,7 +34,7 @@ The saved models are in the folder *save_models*.
 - For finetuning:
 
 ```
-python odt.py --benchmark=adaptec1.py
+python odt.py --benchmark=adaptec1
 ```
 The model path for funetuning can be modified in *odt.py*. Typically, the optimal model files obtained from pre-training are used to fine-tune.
 
