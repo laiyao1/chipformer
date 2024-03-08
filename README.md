@@ -14,6 +14,12 @@ Yao Lai, Jinxin Liu, Zhentao Tang, Bin Wang, Jianye Hao, Ping Luo. "ChiPFormer: 
 
 Download the offline placement dataset from [Google Drive](https://drive.google.com/drive/folders/1F7075SvjccYk97i2UWhahN_9krBvDCmr). (We provide the placement data including 8 benchmarks: adaptec1-4, bigblue1-4, but you can just download a single benchmark file for training.)
 
+For quick start, you can directly unzip the adaptec1_small.pkl data.
+
+```
+tar -zxvf adaptec1_small.pkl.tar.gz
+```
+
 #### Download placement benchmark files
 
 Our test dataset including ISPD05 and ICCAD04 dataset. We provide the *adaptec1* dataset for quick start. For all benchmarks, they can also be downloaded from the *placement_bench.zip* file in [Google Drive](https://drive.google.com/drive/folders/1F7075SvjccYk97i2UWhahN_9krBvDCmr) .
