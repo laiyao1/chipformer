@@ -263,9 +263,6 @@ def test_returns(actions, targets = None, obss = None, obss_wire = None,
             break
 
     print("reward_sum = {}".format(reward_sum))
-    strftime = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime()) 
-    file_name = "{}-{:.2f}-{}.png".format(strftime, reward_sum, benchmark)
-    env.draw(file_name, correct)
 
 
 if __name__ == "__main__":
