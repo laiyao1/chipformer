@@ -12,8 +12,8 @@ is_half = False
 
 # make sure the dataset is in the root path
 pkl_file_name_list = [
-    # 'adaptec1_small.pkl',
-    'adaptec2_small.pkl',
+    'adaptec1_small.pkl',
+    # 'adaptec2_small.pkl',
     # 'adaptec3_small.pkl',
     # 'adaptec4_small.pkl',
     # 'bigblue1_small.pkl',

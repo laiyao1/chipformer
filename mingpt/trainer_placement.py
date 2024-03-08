@@ -200,7 +200,7 @@ class Trainer:
 
                     # report progress
                     accs = np.append(accs, acc.cpu().numpy().mean())
-                    pbar.set_description(f"epoch {epoch+1} iter {it}: train loss {loss.item():.5f}. lr {lr:e}. acc {accs.mean():.5f}")
+                    pbar.set_description(f"epoch {epoch+1} iter {it}: train loss {loss.item():.5f}. lr {lr:e}.")
                     
                 # save model
                 if accs.mean() > self.best_acc + 0.02 and accs.mean()>=0.3:

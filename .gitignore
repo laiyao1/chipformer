@@ -1,0 +1,5 @@
+adaptec1_small.pkl
+save_models/20*.pkl
+__pycache__/
+mingpt/__pycache__/
+dataset.pkl
