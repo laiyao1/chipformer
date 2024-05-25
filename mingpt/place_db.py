@@ -3,6 +3,7 @@ import os
 from operator import itemgetter
 from itertools import combinations
 import pickle
+import networkx as nx
 # Macro dict (macro id -> name, x, y)
 
 def read_node_file(fopen, benchmark):
@@ -290,7 +291,7 @@ def divide_node(node_info):
 
 class PlaceDB():
 
-    def __init__(self, benchmark = None):
+    def __init__(self, benchmark = None, offset = 0, is_graph = False):
         if benchmark is None:
             self.benchmark = None
             self.node_info, self.node_info_raw_id_name, self.port_info = None, None, None
@@ -340,7 +341,8 @@ class PlaceDB():
             self.node_id_to_name = get_node_id_to_name_topology(self.node_info, self.node_to_net_dict, self.net_info, self.benchmark)
             self.node_name_to_id =  dict((t, i) for i, t in enumerate(self.node_id_to_name))
             self.node_cnt = len(self.node_info)
-            self.circuit_fea = self.get_circuit_fea()
+            self.circuit_fea = self.get_circuit_fea(is_graph=False)
+            self.adj, self.features, self.graph = self.get_graph_fea(offset)
     
     def debug_str(self):
         print("node_cnt = {}".format(len(self.node_info)))
@@ -391,7 +393,39 @@ class PlaceDB():
             visited_neighbour = cnt
             visited_neighbours.append(visited_neighbour)
     
-    def get_circuit_fea(self):
+    def get_graph_fea(self, offset = 0):
+        graph = {}
+        for i in range(min(256, self.node_cnt)):
+            graph[i+offset] = set()
+        for i, net_name in enumerate(self.net_info):
+            node_list = []
+            for node_name in self.net_info[net_name]['nodes']:
+                if node_name in self.node_name_to_id and self.node_name_to_id[node_name] < 256:
+                    node_list.append(self.node_name_to_id[node_name])
+            for i, j in combinations(node_list, 2):
+                graph[i+offset].add(j+offset)
+                graph[j+offset].add(i+offset)
+        features = np.zeros((min(256, self.node_cnt), 4))
+        for i in range(min(256, self.node_cnt)):
+            node_name = self.node_id_to_name[i]
+            features[i][0] = self.node_info[node_name]['x'] / self.max_height
+            features[i][1] = self.node_info[node_name]['y'] / self.max_height
+            features[i][2] = self.node_info[node_name]['x'] * self.node_info[node_name]['y'] / (self.max_height ** 2)
+            features[i][3] = i / 256.0
+        adj = nx.adjacency_matrix(nx.from_dict_of_lists(graph))
+        print("features shape", features.shape)
+        print("adj shape", adj.shape)
+        
+        return adj, features, graph
+    
+    def get_circuit_fea(self, is_graph = True):
+        if is_graph:
+            graph_result = pickle.load(open("circuit_g_token-example.pkl", "rb"))
+            z_emb_avg = graph_result[self.benchmark].detach().numpy()
+            print("z_emb_avg shape", z_emb_avg.shape)
+            circuit_fea = np.zeros((256*3,))
+            circuit_fea[: z_emb_avg.shape[0]] = z_emb_avg
+            return circuit_fea
         areas = []
         neighbors = []
         visited_neighbours =[]
@@ -461,6 +495,7 @@ class PlaceDB():
 
 if __name__ == "__main__":
     placedb = PlaceDB("adaptec1")
+    placedb2 = PlaceDB("adaptec1", is_graph = True)
     placedb.debug_str()
 
 

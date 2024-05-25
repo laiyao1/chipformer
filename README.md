@@ -44,6 +44,37 @@ python odt.py --benchmark=adaptec1
 ```
 The model path for funetuning can be modified in *odt.py*. Typically, the optimal model files obtained from pre-training are used to fine-tune.
 
+
+#### VGAE circuit feature extracture
+
+(2024/05/25 updated)
+
+For using VAGE, you need to firstly train the model, and use this model to evaluate the given benchmarks.
+
+```
+python graph_train.py
+```
+
+Then the trained model would be saved in the directory ```save_graph_models/```.
+
+```
+python graph_eval.py
+```
+
+The circuit embeddings are saved in the file ```circuit_g_token*.pkl```.
+
+Then, you should modify the file ```mingpt/place_db.py``` for the line
+
+```
+def __init__(self, benchmark = None, offset = 0, is_graph = False):
+```
+to 
+```
+def __init__(self, benchmark = None, offset = 0, is_graph = True):
+```
+
+We also provide the example model and embedding file which you can directly use.
+
 ### Parameter
 
 For *run_dt_place.py*:

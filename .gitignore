@@ -3,3 +3,8 @@ save_models/20*.pkl
 __pycache__/
 mingpt/__pycache__/
 dataset.pkl
+
+circuit_g_token-2*.pkl
+save_models/
+save_graph_models/20*.pkl
+20*.pkl
